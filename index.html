@@ -5,10 +5,9 @@
   <style>
     body { font-family: Arial; margin: 40px; background: #f5f5f5; }
     .container { max-width: 800px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    h1 { text-align: center; color: #003366; }
     .subtitle { text-align: center; color: #666; font-size: 14px; margin-bottom: 30px; }
     .input-row { display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 20px; }
-    input { width: 300px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+    input { width: 320px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
     button { padding: 10px 20px; background: #0070f3; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
     button:hover { background: #005bb5; }
     .box { border: 1px solid #ccc; border-radius: 6px; padding: 20px; margin-top: 20px; }
@@ -17,8 +16,6 @@
     .box-2 { background: #fff8e1; border-color: #f0c040; }
     .pass { color: green; font-weight: bold; }
     .fail { color: red; font-weight: bold; }
-    .warn { color: orange; font-weight: bold; }
-    .no-record { color: red; }
     .record-item { margin: 10px 0; padding: 10px; border-radius: 4px; background: #f0f0f0; }
     .copy { cursor: pointer; padding: 4px 10px; margin-top: 6px; background: #0070f3; color: #fff; border: none; border-radius: 4px; font-size: 12px; }
     .copy:hover { background: #005bb5; }
@@ -26,16 +23,16 @@
     .contact-box a { color: #003366; font-weight: bold; }
     pre { background: #eee; padding: 10px; border-radius: 4px; white-space: pre-wrap; font-size: 13px; }
     .footer { text-align: center; margin-top: 40px; font-size: 12px; color: #aaa; }
-    .hidden { display: none; }
+    .title { text-align: center; font-size: 24px; font-weight: bold; color: #003366; margin-bottom: 5px; }
   </style>
 </head>
 <body>
 <div class="container">
-  # DNS Health Checker
-  <p class="subtitle">Check if your domain's DNS settings are correctly configured for MyCRM email.</p>
+  <p class="title">DNS Health Checker</p>
+  <p class="subtitle">Check if your domain's DNS settings are correctly configured for MyCRM email.<br>You can enter your email address or just your domain.</p>
 
   <div class="input-row">
-    <input id="domain" placeholder="Enter your domain (e.g. yourbusiness.com.au)" />
+    <input id="domain" placeholder="e.g. john@yourbusiness.com.au or yourbusiness.com.au" />
     <button onclick="checkDNS()">Check DNS</button>
   </div>
 
@@ -59,8 +56,11 @@
   }
 
   async function checkDNS() {
-    const domain = document.getElementById("domain").value.trim().toLowerCase().replace(/^https?:\/\//, "").replace(/\/$/, "");
-    if (!domain) { alert("Please enter a domain."); return; }
+    const raw = document.getElementById("domain").value.trim();
+    let domain = raw.includes("@") ? raw.split("@")[1].trim() : raw;
+    domain = domain.toLowerCase().replace(/^https?:\/\//, "").replace(/\/$/, "").trim();
+
+    if (!domain) { alert("Please enter your email address or domain."); return; }
 
     document.getElementById("results").innerHTML = "<p style='text-align:center;color:#555;'>Checking DNS records for <strong>" + domain + "</strong>...</p>";
 
@@ -79,37 +79,33 @@
     const mandrillRecord = txt.find(r => r.includes("mandrill_verify"));
     const dmarcRecord = dmarcRecords.map(r => r.data.replace(/"/g, "").trim()).find(r => r.includes("v=DMARC1"));
 
-    // Checks
     const spfPass = spfRecord && spfRecord.includes("include:sendgrid.net") && spfRecord.includes("include:spf.mandrillapp.com");
     const mandrillPass = !!mandrillRecord;
-    const dmarcPass = dmarcRecord && (dmarcRecord.includes("p=none") || dmarcRecord.includes("p=quarantine"));
+    const dmarcPass = !!dmarcRecord;
     const dkimPass = mte1.length > 0 && mte2.length > 0;
     const cioPass = sg1.length > 0 && sg12.length > 0 && cio.length > 0;
 
-    // Needs escalation?
     const needsEscalation = !mandrillPass || !cioPass;
 
-    // Box 1 — Self-serviceable fixes
+    // Box 1
     let box1Content = "";
 
     if (!spfPass) {
-      const spfValue = `v=spf1 include:sendgrid.net include:spf.mandrillapp.com ~all`;
       box1Content += `
         <div class="record-item">
           <strong>SPF Record</strong> &mdash; <span class="fail">Missing or incomplete</span><br>
-          <small>Add or update your SPF TXT record:</small>
-          <pre id="spf-val">Type: TXT | Host: @ | Value: ${spfValue}</pre>
+          <small>Add or update your SPF TXT record. Note: Do NOT create a new one if one already exists — add to it.</small>
+          <pre id="spf-val">Type: TXT | Host: @ | Value: v=spf1 include:sendgrid.net include:spf.mandrillapp.com ~all</pre>
           <button class="copy" onclick="copyText('spf-val')">Copy</button>
         </div>`;
     }
 
     if (!dmarcPass) {
-      const dmarcValue = `v=DMARC1; p=none;`;
       box1Content += `
         <div class="record-item">
           <strong>DMARC Record</strong> &mdash; <span class="fail">Missing</span><br>
           <small>Add this TXT record to your DNS:</small>
-          <pre id="dmarc-val">Type: TXT | Host: _dmarc.${domain} | Value: ${dmarcValue}</pre>
+          <pre id="dmarc-val">Type: TXT | Host: _dmarc.${domain} | Value: v=DMARC1; p=none;</pre>
           <button class="copy" onclick="copyText('dmarc-val')">Copy</button>
         </div>`;
     }
@@ -125,20 +121,17 @@ Type: CNAME | Host: mte2._domainkey.${domain} | Value: dkim2.mandrillapp.com</pr
         </div>`;
     }
 
-    if (!spfPass && !dmarcPass && !dkimPass && !mandrillPass && !cioPass) {
-      box1Content = `<p style='color:#555;'>No self-serviceable records found. Please see Box 2 below.</p>`;
-    } else if (spfPass && dmarcPass && dkimPass && !needsEscalation) {
+    if (spfPass && dmarcPass && dkimPass) {
       box1Content = `<p class='pass'>&#10003; All self-serviceable DNS records are correctly configured!</p>`;
     }
 
-    // Box 2 — Escalation
+    // Box 2
     let box2Content = "";
     if (needsEscalation) {
       box2Content += `<p>The following settings require assistance from the <strong>MyCRM Technology Support team</strong>:</p><ul>`;
       if (!mandrillPass) box2Content += `<li><strong>Mandrill Verification</strong> &mdash; record not found or needs to be generated</li>`;
-      if (!cioPass) box2Content += `<li><strong>CustomerIO / SendGrid</strong> &mdash; CNAME records missing or incorrect</li>`;
-      box2Content += `</ul>`;
-      box2Content += `
+      if (!cioPass) box2Content += `<li><strong>CustomerIO / SendGrid CNAME Records</strong> &mdash; missing or incorrect</li>`;
+      box2Content += `</ul>
         <div class="contact-box">
           &#128222; <strong>Contact LMG Technology Support</strong><br><br>
           Please raise a support ticket and our team will take care of the rest.<br><br>
@@ -148,7 +141,7 @@ Type: CNAME | Host: mte2._domainkey.${domain} | Value: dkim2.mandrillapp.com</pr
       box2Content = `<p class='pass'>&#10003; No escalation needed. All records are in order!</p>`;
     }
 
-    // Summary badges
+    // Badges
     const checks = [
       { label: "SPF", pass: spfPass },
       { label: "Mandrill", pass: mandrillPass },
