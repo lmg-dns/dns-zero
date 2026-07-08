@@ -5,106 +5,96 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DNS Health Check for MyCRM Emails</title>
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: Arial, sans-serif;
-      max-width: 700px;
+      background: #f5f5f5;
+      max-width: 720px;
       margin: 40px auto;
       padding: 0 20px;
-      background: #f9f9f9;
     }
     .header {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 28px;
     }
-    .header h1 {
-      font-size: 1.8rem;
-      margin-bottom: 8px;
-    }
-    .header p {
-      color: #666;
-      font-size: 0.95rem;
-      margin: 0;
-    }
-    .input-row {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 24px;
-    }
+    .header h1 { font-size: 1.8rem; margin-bottom: 8px; color: #1a1a1a; }
+    .header p { color: #666; font-size: 0.92rem; }
+
+    .input-row { display: flex; gap: 10px; margin-bottom: 24px; }
     .input-row input {
-      flex: 1;
-      padding: 9px 12px;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
+      flex: 1; padding: 9px 12px; font-size: 1rem;
+      border: 1px solid #ccc; border-radius: 4px;
     }
     .input-row button {
-      padding: 9px 18px;
-      font-size: 1rem;
-      cursor: pointer;
-      background: #0078d4;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
+      padding: 9px 18px; font-size: 1rem; cursor: pointer;
+      background: #0078d4; color: #fff; border: none; border-radius: 4px;
     }
     .input-row button:hover { background: #005bb5; }
 
-    .pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 24px;
-      justify-content: center;
-    }
-    .pill {
-      padding: 4px 14px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: bold;
-    }
-    .pill-pass { background: #e6f4ea; color: #2e7d32; }
-    .pill-fail { background: #fdecea; color: #c62828; }
-    .pill-pending { background: #f0f0f0; color: #999; }
-
-    .result-section {
+    .box {
       background: #fff;
       border: 1px solid #e0e0e0;
       border-radius: 8px;
       padding: 20px;
       margin-bottom: 16px;
     }
-    .result-section.all-good {
-      border-color: #81c784;
-      background: #f1f8f2;
+    .box.all-good { border-color: #81c784; background: #f1f8f2; }
+    .box.has-issues { border-color: #ef9a9a; background: #fff8f8; }
+    .box-title {
+      font-size: 1rem; font-weight: bold;
+      margin-bottom: 14px; color: #333;
     }
-    .result-section.has-issues {
-      border-color: #ef9a9a;
-      background: #fff8f8;
+    .success-msg { color: #2e7d32; font-weight: bold; font-size: 0.95rem; }
+    .contact-msg {
+      color: #555; font-size: 0.92rem; line-height: 1.6;
     }
+    .contact-msg strong { color: #0078d4; }
 
-    .section-title {
-      font-size: 1rem;
-      font-weight: bold;
-      margin-bottom: 12px;
-      color: #333;
-    }
-    .success-msg {
-      color: #2e7d32;
-      font-weight: bold;
-      font-size: 0.95rem;
-    }
     .record-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 10px 0;
+      padding: 14px 0;
       border-bottom: 1px solid #eee;
     }
     .record-row:last-child { border-bottom: none; }
-    .record-label { font-weight: bold; min-width: 80px; font-size: 0.9rem; }
+    .record-name { font-weight: bold; font-size: 0.95rem; margin-bottom: 6px; }
     .status-ok { color: #2e7d32; font-weight: bold; }
     .status-fail { color: #c62828; font-weight: bold; }
     .status-warn { color: #e65100; font-weight: bold; }
-    .detail { font-size: 0.82rem; color: #666; margin-top: 3px; }
+
+    .record-block {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 10px 12px;
+      margin-top: 8px;
+      font-size: 0.83rem;
+    }
+    .record-block .block-label {
+      font-size: 0.75rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 4px;
+    }
+    .record-block .block-value {
+      font-family: monospace;
+      word-break: break-all;
+      color: #1a1a1a;
+    }
+    .record-block.correct { border-color: #81c784; background: #f1f8f2; }
+    .record-block.incorrect { border-color: #ef9a9a; background: #fff0f0; }
+
+    .copy-btn {
+      margin-top: 8px;
+      padding: 5px 12px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      background: #0078d4;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+    }
+    .copy-btn:hover { background: #005bb5; }
+
     .warn-box {
       background: #fff8e1;
       border-left: 4px solid #f5a623;
@@ -113,25 +103,23 @@
       font-size: 0.83rem;
       border-radius: 0 4px 4px 0;
     }
-    .copy-box {
-      background: #f4f4f4;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      padding: 6px 10px;
-      font-family: monospace;
-      font-size: 0.78rem;
-      margin-top: 6px;
-      word-break: break-all;
-      cursor: pointer;
+    .info-box {
+      background: #e3f2fd;
+      border-left: 4px solid #0078d4;
+      padding: 8px 12px;
+      margin-top: 8px;
+      font-size: 0.83rem;
+      border-radius: 0 4px 4px 0;
     }
-    .copy-box:hover { background: #e8e8e8; }
 
     .footer {
       text-align: center;
       margin-top: 40px;
+      padding-bottom: 40px;
       color: #aaa;
       font-size: 0.82rem;
     }
+    .footer a { color: #0078d4; text-decoration: none; }
   </style>
 </head>
 <body>
@@ -146,12 +134,12 @@
   <button onclick="checkDNS()">Check DNS</button>
 </div>
 
-<div id="pills"></div>
-<div id="results"></div>
+<div id="box1"></div>
+<div id="box2"></div>
 
 <div class="footer">
-  Powered by MyCRM Technology Support<br/>
-  <span>DNS Health Checker — v1.0.1</span>
+  Powered by <a href="#" target="_blank">MyCRM Technology Support</a><br/>
+  <span>DNS Health Checker &mdash; v1.0.1</span>
 </div>
 
 <script>
@@ -166,24 +154,27 @@
     const domain = raw.replace(/^https?:\/\//, "").replace(/\/.*$/, "").split("@").pop();
     if (!domain) { alert("Please enter a domain or email."); return; }
 
-    document.getElementById("pills").innerHTML = "<div class='pills'><span class='pill pill-pending'>Checking...</span></div>";
-    document.getElementById("results").innerHTML = "";
+    document.getElementById("box1").innerHTML = "<div class='box'><div class='box-title'>Checking DNS for " + domain + "...</div></div>";
+    document.getElementById("box2").innerHTML = "";
 
     try {
-      const [spfData, dkimData, dmarcData, sgData, mandrillData] = await Promise.all([
+      const [txtData, dkimData, dmarcData, sgData] = await Promise.all([
         fetchDNS(domain, "TXT"),
         fetchDNS("mandrill._domainkey." + domain, "TXT"),
         fetchDNS("_dmarc." + domain, "TXT"),
-        fetchDNS("em." + domain, "CNAME"),
-        fetchDNS(domain, "TXT")
+        fetchDNS("em." + domain, "CNAME")
       ]);
 
-      const allTxt = (spfData.Answer || []).map(r => r.data.replace(/"/g, "").trim());
+      const allTxt = (txtData.Answer || []).map(r => r.data.replace(/"/g, "").trim());
       const spfRecords = allTxt.filter(r => r.startsWith("v=spf1"));
       const spfCount = spfRecords.length;
+      const currentSPF = spfRecords[0] || null;
       const spfHasMandrill = spfRecords.some(r => r.includes("spf.mandrillapp.com") || r.includes("_spf.mandrillapp.com"));
       const spfHasSendgrid = spfRecords.some(r => r.includes("sendgrid.net"));
       const spfPass = spfCount === 1 && spfHasMandrill && spfHasSendgrid;
+
+      const mandrillVerify = allTxt.filter(r => r.startsWith("mandrill_verify"));
+      const mandrillPass = mandrillVerify.length > 0;
 
       const dkimRecords = (dkimData.Answer || []).map(r => r.data.replace(/"/g, "").trim());
       const dkimPass = dkimRecords.some(r => r.includes("v=DKIM1") || r.includes("p="));
@@ -194,145 +185,153 @@
       const sgRecords = (sgData.Answer || []).map(r => r.data.trim());
       const sgPass = sgRecords.some(r => r.includes("sendgrid.net"));
 
-      const mandrillRecords = allTxt.filter(r => r.startsWith("mandrill_verify"));
-      const mandrillPass = mandrillRecords.length > 0;
+      const allPass = spfPass && mandrillPass && dkimPass && dmarcPass && sgPass;
 
-      // Pills
-      const pillsHTML = `
-        <div class="pills">
-          <span class="pill ${spfPass ? 'pill-pass' : 'pill-fail'}">SPF: ${spfPass ? '✔' : '✘'}</span>
-          <span class="pill ${mandrillPass ? 'pill-pass' : 'pill-fail'}">Mandrill: ${mandrillPass ? '✔' : '✘'}</span>
-          <span class="pill ${dmarcPass ? 'pill-pass' : 'pill-fail'}">DMARC: ${dmarcPass ? '✔' : '✘'}</span>
-          <span class="pill ${dkimPass ? 'pill-pass' : 'pill-fail'}">DKIM: ${dkimPass ? '✔' : '✘'}</span>
-          <span class="pill ${sgPass ? 'pill-pass' : 'pill-fail'}">SendGrid: ${sgPass ? '✔' : '✘'}</span>
-        </div>`;
-      document.getElementById("pills").innerHTML = pillsHTML;
+      // ── BOX 1 — Passing records only ─────────────────────
+      let box1Rows = "";
+      if (spfPass) box1Rows += recordRow("SPF", true, "SPF record is correctly configured.");
+      if (mandrillPass) box1Rows += recordRow("Mandrill", true, "Mandrill verification record found.");
+      if (dkimPass) box1Rows += recordRow("DKIM", true, "Mandrill DKIM record found.");
+      if (dmarcPass) box1Rows += recordRow("DMARC", true, "DMARC record found.");
+      if (sgPass) box1Rows += recordRow("SendGrid", true, "SendGrid CNAME record found.");
 
-      // Box 1 — Self-serviceable
-      const box1Issues = !spfPass || !dmarcPass;
       let box1HTML = "";
-      if (!box1Issues) {
-        box1HTML = `
-          <div class="result-section all-good">
-            <div class="success-msg">✔ All self-serviceable DNS records are correctly configured!</div>
-          </div>`;
-      } else {
-        let issuesHTML = "";
+      if (allPass) {
+        box1HTML = `<div class="box all-good">
+          <div class="success-msg">&#10004; All DNS records are correctly configured for MyCRM!</div>
+        </div>`;
+      } else if (box1Rows) {
+        box1HTML = `<div class="box all-good">
+          <div class="box-title">&#10004; Correctly Configured Records</div>
+          ${box1Rows}
+        </div>`;
+      }
+      document.getElementById("box1").innerHTML = box1HTML;
 
-        // SPF
+      // ── BOX 2 — Failing records + fixes ──────────────────
+      if (allPass) {
+        document.getElementById("box2").innerHTML = `<div class="box">
+          <div class="contact-msg">
+            If you are still experiencing issues sending emails, <strong>Hellopack</strong>, <strong>Privacy Consent</strong> or <strong>Game Plan</strong> from MyCRM, please contact <strong>Ask LMG</strong> for further assistance.
+          </div>
+        </div>`;
+        return;
+      }
+
+      let box2Rows = "";
+
+      // SPF
+      if (!spfPass) {
         if (spfCount === 0) {
-          issuesHTML += `<div class="record-row">
-            <div class="record-label">SPF</div>
-            <div>
-              <div class="status-fail">✘ No SPF record found</div>
-              <div class="warn-box">⚠️ No SPF record found for ${domain}.</div>
+          const fixValue = "v=spf1 include:sendgrid.net include:spf.mandrillapp.com ~all";
+          box2Rows += `<div class="record-row">
+            <div class="record-name status-fail">&#10008; SPF — No record found</div>
+            <div class="warn-box">&#9888;&#65039; No SPF record was found on your domain. Please add the following TXT record:</div>
+            <div class="record-block correct">
+              <div class="block-label">&#10004; Add this record</div>
+              <div class="block-value">Type: TXT | Host: @ | Value: ${fixValue}</div>
             </div>
+            <button class="copy-btn" onclick="copyVal(this, '${fixValue}')">&#128203; Copy Value</button>
           </div>`;
         } else if (spfCount > 1) {
-          issuesHTML += `<div class="record-row">
-            <div class="record-label">SPF</div>
-            <div>
-              <div class="status-warn">⚠ Multiple SPF records detected</div>
-              <div class="warn-box">⚠️ You have ${spfCount} SPF records. Only one is allowed — combine them.</div>
-              ${spfRecords.map(r => `<div class="copy-box" onclick="copyText(this)">${r}</div>`).join("")}
-            </div>
+          box2Rows += `<div class="record-row">
+            <div class="record-name status-warn">&#9888; SPF — Multiple records detected</div>
+            <div class="warn-box">&#9888;&#65039; You have ${spfCount} SPF records. Only ONE SPF record is allowed. Please combine them into a single record — do NOT delete any, merge the includes together.</div>
+            ${spfRecords.map((r, i) => `<div class="record-block incorrect"><div class="block-label">Your current SPF record ${i + 1}</div><div class="block-value">${r}</div></div>`).join("")}
           </div>`;
         } else {
-          let spfIssues = "";
-          if (!spfHasMandrill) spfIssues += `<div class="warn-box">⚠️ Mandrill (spf.mandrillapp.com) is missing from your SPF record.</div>`;
-          if (!spfHasSendgrid) spfIssues += `<div class="warn-box">⚠️ SendGrid (sendgrid.net) is missing from your SPF record.</div>`;
-          if (spfIssues) {
-            issuesHTML += `<div class="record-row">
-              <div class="record-label">SPF</div>
-              <div>
-                <div class="status-warn">⚠ SPF record needs updating</div>
-                ${spfRecords.map(r => `<div class="copy-box" onclick="copyText(this)">${r}</div>`).join("")}
-                ${spfIssues}
-              </div>
-            </div>`;
-          }
-        }
-
-        // DMARC
-        if (!dmarcPass) {
-          issuesHTML += `<div class="record-row">
-            <div class="record-label">DMARC</div>
-            <div>
-              <div class="status-warn">⚠ No DMARC record found</div>
-              <div class="warn-box">⚠️ No DMARC record found at _dmarc.${domain}. Add one for better email security.</div>
+          let missing = [];
+          if (!spfHasMandrill) missing.push("include:spf.mandrillapp.com");
+          if (!spfHasSendgrid) missing.push("include:sendgrid.net");
+          const fixValue = currentSPF.replace("~all", missing.join(" ") + " ~all");
+          box2Rows += `<div class="record-row">
+            <div class="record-name status-warn">&#9888; SPF — Record needs updating</div>
+            <div class="info-box">&#8505;&#65039; Your current SPF record is shown below. Do <strong>NOT</strong> delete it or create a new one — you only need to <strong>add the missing include(s)</strong> to your existing record.</div>
+            <div class="record-block incorrect">
+              <div class="block-label">&#10060; Your current SPF record</div>
+              <div class="block-value">${currentSPF}</div>
             </div>
+            <div class="record-block correct">
+              <div class="block-label">&#10004; Updated SPF record (replace your current one with this)</div>
+              <div class="block-value">${fixValue}</div>
+            </div>
+            <button class="copy-btn" onclick="copyVal(this, '${fixValue}')">&#128203; Copy Updated SPF Value</button>
           </div>`;
         }
-
-        box1HTML = `
-          <div class="result-section has-issues">
-            <div class="section-title">🔧 DNS Records You Can Fix Yourself</div>
-            <div class="detail" style="margin-bottom:12px;">Share these instructions with your IT team or domain provider.</div>
-            ${issuesHTML}
-          </div>`;
       }
 
-      // Box 2 — Needs LMG Support (only show if Mandrill or SendGrid failing)
-      const box2Issues = !mandrillPass || !dkimPass || !sgPass;
-      let box2HTML = "";
-      if (box2Issues) {
-        let lmgIssues = "";
-
-        if (!mandrillPass) {
-          lmgIssues += `<div class="record-row">
-            <div class="record-label">Mandrill</div>
-            <div>
-              <div class="status-fail">✘ Mandrill verification missing</div>
-              <div class="warn-box">⚠️ No Mandrill verification TXT record found. This requires access to Mandrill to generate.</div>
-            </div>
-          </div>`;
-        }
-
-        if (!dkimPass) {
-          lmgIssues += `<div class="record-row">
-            <div class="record-label">DKIM</div>
-            <div>
-              <div class="status-fail">✘ Mandrill DKIM missing</div>
-              <div class="warn-box">⚠️ No DKIM record found at mandrill._domainkey.${domain}.</div>
-            </div>
-          </div>`;
-        }
-
-        if (!sgPass) {
-          lmgIssues += `<div class="record-row">
-            <div class="record-label">SendGrid</div>
-            <div>
-              <div class="status-fail">✘ SendGrid CNAME missing</div>
-              <div class="warn-box">⚠️ No SendGrid CNAME found at em.${domain}.</div>
-            </div>
-          </div>`;
-        }
-
-        box2HTML = `
-          <div class="result-section has-issues">
-            <div class="section-title">📞 Needs LMG Support</div>
-            <div class="detail" style="margin-bottom:12px;">These settings require access to internal tools and cannot be self-serviced.</div>
-            ${lmgIssues}
-          </div>`;
-      } else {
-        box2HTML = `
-          <div class="result-section all-good">
-            <div class="success-msg">✔ No escalation needed. All records are in order!</div>
-          </div>`;
+      // Mandrill Verify
+      if (!mandrillPass) {
+        box2Rows += `<div class="record-row">
+          <div class="record-name status-fail">&#10008; Mandrill — Verification record missing</div>
+          <div class="warn-box">&#9888;&#65039; No Mandrill verification TXT record was found. This record is unique to your domain and can only be generated by the MyCRM Support team. Please contact <strong>Ask LMG</strong> to have this set up for you.</div>
+        </div>`;
       }
 
-      document.getElementById("results").innerHTML = box1HTML + box2HTML;
+      // DKIM
+      if (!dkimPass) {
+        const fixValue = "Type: TXT | Host: mandrill._domainkey." + domain + " | Value: (provided by Ask LMG)";
+        box2Rows += `<div class="record-row">
+          <div class="record-name status-fail">&#10008; DKIM — Mandrill DKIM record missing</div>
+          <div class="warn-box">&#9888;&#65039; No DKIM record was found at mandrill._domainkey.${domain}. Please add the following TXT record to your DNS:</div>
+          <div class="record-block correct">
+            <div class="block-label">&#10004; Add this record</div>
+            <div class="block-value">Type: TXT | Host: mandrill._domainkey.${domain} | Value: (contact Ask LMG for the value)</div>
+          </div>
+        </div>`;
+      }
+
+      // DMARC
+      if (!dmarcPass) {
+        const fixValue = "v=DMARC1; p=none;";
+        box2Rows += `<div class="record-row">
+          <div class="record-name status-fail">&#10008; DMARC — No record found</div>
+          <div class="warn-box">&#9888;&#65039; No DMARC record was found at _dmarc.${domain}. Please add the following TXT record:</div>
+          <div class="record-block correct">
+            <div class="block-label">&#10004; Add this record</div>
+            <div class="block-value">Type: TXT | Host: _dmarc.${domain} | Value: ${fixValue}</div>
+          </div>
+          <button class="copy-btn" onclick="copyVal(this, '${fixValue}')">&#128203; Copy Value</button>
+        </div>`;
+      }
+
+      // SendGrid
+      if (!sgPass) {
+        const fixValue = "u11692406.wl157.sendgrid.net";
+        box2Rows += `<div class="record-row">
+          <div class="record-name status-fail">&#10008; SendGrid — CNAME record missing</div>
+          <div class="warn-box">&#9888;&#65039; No SendGrid CNAME record was found at em.${domain}. Please add the following record:</div>
+          <div class="record-block correct">
+            <div class="block-label">&#10004; Add this record</div>
+            <div class="block-value">Type: CNAME | Host: em.${domain} | Value: ${fixValue}</div>
+          </div>
+          <button class="copy-btn" onclick="copyVal(this, '${fixValue}')">&#128203; Copy Value</button>
+        </div>`;
+      }
+
+      document.getElementById("box2").innerHTML = `<div class="box has-issues">
+        <div class="box-title">&#10060; Records That Need Attention</div>
+        ${box2Rows}
+      </div>`;
 
     } catch(e) {
-      document.getElementById("pills").innerHTML = "";
-      document.getElementById("results").innerHTML = "<p style='color:red'>Error checking DNS. Please try again.</p>";
+      document.getElementById("box1").innerHTML = "<div class='box'><p style='color:red'>Error checking DNS. Please try again.</p></div>";
+      document.getElementById("box2").innerHTML = "";
     }
   }
 
-  function copyText(el) {
-    navigator.clipboard.writeText(el.textContent.trim()).then(() => {
-      el.style.background = "#d4edda";
-      setTimeout(() => { el.style.background = ""; }, 1200);
+  function recordRow(label, pass, msg) {
+    return `<div class="record-row">
+      <div class="record-name ${pass ? 'status-ok' : 'status-fail'}">${pass ? '&#10004;' : '&#10008;'} ${label}</div>
+      <div style="font-size:0.83rem; color:#555;">${msg}</div>
+    </div>`;
+  }
+
+  function copyVal(btn, val) {
+    navigator.clipboard.writeText(val).then(() => {
+      btn.textContent = "Copied!";
+      btn.style.background = "#2e7d32";
+      setTimeout(() => { btn.textContent = "\uD83D\uDCCB Copy Value"; btn.style.background = "#0078d4"; }, 1500);
     });
   }
 </script>
