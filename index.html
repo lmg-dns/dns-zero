@@ -26,7 +26,6 @@
       background: #0078d4; color: #fff; border: none; border-radius: 4px;
     }
     .input-row button:hover { background: #005bb5; }
-
     .box {
       background: #fff; border: 1px solid #e0e0e0;
       border-radius: 8px; padding: 20px; margin-bottom: 16px;
@@ -34,22 +33,19 @@
     .box.all-good { border-color: #81c784; background: #f1f8f2; }
     .box.has-issues { border-color: #ef9a9a; background: #fff8f8; }
     .box.advisory { border-color: #f5a623; background: #fffbf0; }
-
-    .box-title { font-size: 1rem; font-weight: bold; margin-bottom: 14px; color: #333; }
+    .box-title { font-size: 1rem; font-weight: bold; margin-bottom: 6px; color: #333; }
+    .box-subtitle { font-size: 0.83rem; color: #777; margin-bottom: 14px; }
     .success-msg { color: #2e7d32; font-weight: bold; font-size: 0.95rem; }
     .contact-msg { color: #555; font-size: 0.92rem; line-height: 1.6; }
     .contact-msg strong { color: #0078d4; }
-
     .record-row { padding: 14px 0; border-bottom: 1px solid #eee; }
     .record-row:last-child { border-bottom: none; }
     .record-name { font-weight: bold; font-size: 0.95rem; margin-bottom: 8px; }
     .status-ok { color: #2e7d32; }
     .status-fail { color: #c62828; }
     .status-warn { color: #e65100; }
-
     .pass-row { padding: 8px 0; border-bottom: 1px solid #eee; font-size: 0.88rem; }
     .pass-row:last-child { border-bottom: none; }
-
     .record-block {
       border-radius: 4px; padding: 10px 12px;
       margin-top: 8px; font-size: 0.83rem;
@@ -65,14 +61,12 @@
     }
     .record-block.fix { border-color: #90caf9; background: #e3f2fd; }
     .record-block.incorrect { border-color: #ef9a9a; background: #fff0f0; }
-
     .copy-btn {
       margin-top: 8px; padding: 5px 12px; font-size: 0.8rem;
       cursor: pointer; background: #0078d4; color: #fff;
       border: none; border-radius: 4px; display: inline-block;
     }
     .copy-btn:hover { background: #005bb5; }
-
     .warn-box {
       background: #fff8e1; border-left: 4px solid #f5a623;
       padding: 8px 12px; margin-top: 8px; font-size: 0.83rem;
@@ -83,7 +77,6 @@
       padding: 8px 12px; margin-top: 8px; font-size: 0.83rem;
       border-radius: 0 4px 4px 0;
     }
-
     .footer {
       text-align: center; margin-top: 40px; padding-bottom: 40px;
       color: #aaa; font-size: 0.82rem;
@@ -109,7 +102,7 @@
 
 <div class="footer">
   Powered by <a href="https://lmg-dns.github.io/dns-zero/" target="_blank">MyCRM Technology Support</a><br/>
-  <span>DNS Health Checker &mdash; v1.2.0</span>
+  <span>DNS Health Checker &mdash; v1.2.1</span>
 </div>
 
 <script>
@@ -190,7 +183,7 @@
         document.getElementById("box1").innerHTML = "";
       }
 
-      // ── BOX 2 — All pass: contact message ─────────────────
+      // ── All pass state ─────────────────────────────────────
       if (allPass) {
         document.getElementById("box2").innerHTML = "<div class='box'><div class='contact-msg'>If you are still experiencing issues sending emails, <strong>Hellopack</strong>, <strong>Privacy Consent</strong> or <strong>Game Plan</strong> from MyCRM, please contact <strong>Ask LMG</strong> for further assistance.</div></div>";
         document.getElementById("box3").innerHTML = "";
@@ -288,7 +281,11 @@
       }
 
       if (box2Rows) {
-        document.getElementById("box2").innerHTML = "<div class='box has-issues'><div class='box-title'>&#10060; Records That Need Attention</div>" + box2Rows + "</div>";
+        document.getElementById("box2").innerHTML = "<div class='box has-issues'>" +
+          "<div class='box-title'>&#10060; Records That Need Attention</div>" +
+          "<div class='box-subtitle'>&#128337; Did you recently make DNS changes? Please note that DNS updates can take up to <strong>24&ndash;48 hours</strong> to propagate &mdash; not seeing your changes reflected yet?</div>" +
+          box2Rows +
+        "</div>";
       } else {
         document.getElementById("box2").innerHTML = "<div class='box all-good'><div class='success-msg'>&#10004; All core DNS records are correctly configured!</div></div>";
       }
@@ -306,7 +303,7 @@
         document.getElementById("box3").innerHTML = "";
       }
 
-      // ── All core pass + Mandrill advisory ─────────────────
+      // ── Core pass + Mandrill advisory ─────────────────────
       if (corePass && !mandrillPass) {
         document.getElementById("box2").innerHTML = "<div class='box'><div class='contact-msg'>If you are still experiencing issues sending emails, <strong>Hellopack</strong>, <strong>Privacy Consent</strong> or <strong>Game Plan</strong> from MyCRM, please contact <strong>Ask LMG</strong> for further assistance.</div></div>";
       }
