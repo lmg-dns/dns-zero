@@ -13,13 +13,9 @@
       margin: 40px auto;
       padding: 0 20px;
     }
-    .header {
-      text-align: center;
-      margin-bottom: 28px;
-    }
+    .header { text-align: center; margin-bottom: 28px; }
     .header h1 { font-size: 1.8rem; margin-bottom: 8px; color: #1a1a1a; }
     .header p { color: #666; font-size: 0.92rem; }
-
     .input-row { display: flex; gap: 10px; margin-bottom: 24px; }
     .input-row input {
       flex: 1; padding: 9px 12px; font-size: 1rem;
@@ -30,94 +26,57 @@
       background: #0078d4; color: #fff; border: none; border-radius: 4px;
     }
     .input-row button:hover { background: #005bb5; }
-
     .box {
-      background: #fff;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 16px;
+      background: #fff; border: 1px solid #e0e0e0;
+      border-radius: 8px; padding: 20px; margin-bottom: 16px;
     }
     .box.all-good { border-color: #81c784; background: #f1f8f2; }
     .box.has-issues { border-color: #ef9a9a; background: #fff8f8; }
-    .box-title {
-      font-size: 1rem; font-weight: bold;
-      margin-bottom: 14px; color: #333;
-    }
+    .box-title { font-size: 1rem; font-weight: bold; margin-bottom: 14px; color: #333; }
     .success-msg { color: #2e7d32; font-weight: bold; font-size: 0.95rem; }
-    .contact-msg {
-      color: #555; font-size: 0.92rem; line-height: 1.6;
-    }
+    .contact-msg { color: #555; font-size: 0.92rem; line-height: 1.6; }
     .contact-msg strong { color: #0078d4; }
-
-    .record-row {
-      padding: 14px 0;
-      border-bottom: 1px solid #eee;
-    }
+    .record-row { padding: 14px 0; border-bottom: 1px solid #eee; }
     .record-row:last-child { border-bottom: none; }
-    .record-name { font-weight: bold; font-size: 0.95rem; margin-bottom: 6px; }
+    .record-name { font-weight: bold; font-size: 0.95rem; margin-bottom: 8px; }
     .status-ok { color: #2e7d32; font-weight: bold; }
     .status-fail { color: #c62828; font-weight: bold; }
     .status-warn { color: #e65100; font-weight: bold; }
-
     .record-block {
-      background: #f9f9f9;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      padding: 10px 12px;
-      margin-top: 8px;
-      font-size: 0.83rem;
+      background: #f9f9f9; border: 1px solid #ddd;
+      border-radius: 4px; padding: 10px 12px; margin-top: 8px; font-size: 0.83rem;
     }
     .record-block .block-label {
-      font-size: 0.75rem;
-      font-weight: bold;
-      text-transform: uppercase;
-      color: #888;
-      margin-bottom: 4px;
+      font-size: 0.75rem; font-weight: bold;
+      text-transform: uppercase; color: #888; margin-bottom: 6px;
     }
     .record-block .block-value {
-      font-family: monospace;
-      word-break: break-all;
-      color: #1a1a1a;
+      font-family: monospace; word-break: break-all;
+      color: #1a1a1a; line-height: 1.9;
     }
     .record-block.correct { border-color: #81c784; background: #f1f8f2; }
     .record-block.incorrect { border-color: #ef9a9a; background: #fff0f0; }
-
     .copy-btn {
-      margin-top: 8px;
-      padding: 5px 12px;
-      font-size: 0.8rem;
-      cursor: pointer;
-      background: #0078d4;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
+      margin-top: 8px; padding: 5px 12px; font-size: 0.8rem;
+      cursor: pointer; background: #0078d4; color: #fff;
+      border: none; border-radius: 4px; display: inline-block;
     }
     .copy-btn:hover { background: #005bb5; }
-
     .warn-box {
-      background: #fff8e1;
-      border-left: 4px solid #f5a623;
-      padding: 8px 12px;
-      margin-top: 8px;
-      font-size: 0.83rem;
+      background: #fff8e1; border-left: 4px solid #f5a623;
+      padding: 8px 12px; margin-top: 8px; font-size: 0.83rem;
       border-radius: 0 4px 4px 0;
     }
     .info-box {
-      background: #e3f2fd;
-      border-left: 4px solid #0078d4;
-      padding: 8px 12px;
-      margin-top: 8px;
-      font-size: 0.83rem;
+      background: #e3f2fd; border-left: 4px solid #0078d4;
+      padding: 8px 12px; margin-top: 8px; font-size: 0.83rem;
       border-radius: 0 4px 4px 0;
     }
-
+    .pass-row { padding: 8px 0; border-bottom: 1px solid #eee; font-size: 0.88rem; }
+    .pass-row:last-child { border-bottom: none; }
     .footer {
-      text-align: center;
-      margin-top: 40px;
-      padding-bottom: 40px;
-      color: #aaa;
-      font-size: 0.82rem;
+      text-align: center; margin-top: 40px; padding-bottom: 40px;
+      color: #aaa; font-size: 0.82rem;
     }
     .footer a { color: #0078d4; text-decoration: none; }
   </style>
@@ -138,8 +97,8 @@
 <div id="box2"></div>
 
 <div class="footer">
-  Powered by <a href="#" target="_blank">MyCRM Technology Support</a><br/>
-  <span>DNS Health Checker &mdash; v1.0.1</span>
+  Powered by <a href="https://lmg-dns.github.io/dns-zero/" target="_blank">MyCRM Technology Support</a><br/>
+  <span>DNS Health Checker &mdash; v1.1.0</span>
 </div>
 
 <script>
@@ -147,6 +106,10 @@
     const url = "https://dns.google/resolve?name=" + encodeURIComponent(name) + "&type=" + type;
     const res = await fetch(url);
     return res.json();
+  }
+
+  function normalize(answer) {
+    return (answer || []).map(r => r.data.replace(/"/g, "").replace(/\.$/, "").toLowerCase().trim());
   }
 
   async function checkDNS() {
@@ -158,14 +121,17 @@
     document.getElementById("box2").innerHTML = "";
 
     try {
-      const [txtData, dkimData, dmarcData, sgData] = await Promise.all([
+      const [txtData, dkim1Data, dkim2Data, dmarcData, cioData, sg1Data, sg12Data] = await Promise.all([
         fetchDNS(domain, "TXT"),
-        fetchDNS("mandrill._domainkey." + domain, "TXT"),
+        fetchDNS("mte1._domainkey." + domain, "CNAME"),
+        fetchDNS("mte2._domainkey." + domain, "CNAME"),
         fetchDNS("_dmarc." + domain, "TXT"),
-        fetchDNS("em." + domain, "CNAME")
+        fetchDNS("customerio." + domain, "CNAME"),
+        fetchDNS("sg1._domainkey." + domain, "CNAME"),
+        fetchDNS("sg12._domainkey." + domain, "CNAME")
       ]);
 
-      const allTxt = (txtData.Answer || []).map(r => r.data.replace(/"/g, "").trim());
+      const allTxt = normalize(txtData.Answer);
       const spfRecords = allTxt.filter(r => r.startsWith("v=spf1"));
       const spfCount = spfRecords.length;
       const currentSPF = spfRecords[0] || null;
@@ -176,162 +142,180 @@
       const mandrillVerify = allTxt.filter(r => r.startsWith("mandrill_verify"));
       const mandrillPass = mandrillVerify.length > 0;
 
-      const dkimRecords = (dkimData.Answer || []).map(r => r.data.replace(/"/g, "").trim());
-      const dkimPass = dkimRecords.some(r => r.includes("v=DKIM1") || r.includes("p="));
+      const dkim1Records = normalize(dkim1Data.Answer);
+      const dkim2Records = normalize(dkim2Data.Answer);
+      const dkim1Pass = dkim1Records.includes("dkim1.mandrillapp.com");
+      const dkim2Pass = dkim2Records.includes("dkim2.mandrillapp.com");
+      const dkimPass = dkim1Pass && dkim2Pass;
 
-      const dmarcRecords = (dmarcData.Answer || []).map(r => r.data.replace(/"/g, "").trim());
-      const dmarcPass = dmarcRecords.some(r => r.startsWith("v=DMARC1"));
+      const dmarcRecords = normalize(dmarcData.Answer);
+      const dmarcPass = dmarcRecords.some(r => r.startsWith("v=dmarc1"));
 
-      const sgRecords = (sgData.Answer || []).map(r => r.data.trim());
-      const sgPass = sgRecords.some(r => r.includes("sendgrid.net"));
+      const cioRecords = normalize(cioData.Answer);
+      const sg1Records = normalize(sg1Data.Answer);
+      const sg12Records = normalize(sg12Data.Answer);
+      const cioPass = cioRecords.includes("u11692406.wl157.sendgrid.net");
+      const sg1Pass = sg1Records.includes("sg1.domainkey.u11692406.wl157.sendgrid.net");
+      const sg12Pass = sg12Records.includes("sg12.domainkey.u11692406.wl157.sendgrid.net");
+      const sgPass = cioPass && sg1Pass && sg12Pass;
 
       const allPass = spfPass && mandrillPass && dkimPass && dmarcPass && sgPass;
 
-      // ── BOX 1 — Passing records only ─────────────────────
+      // ── BOX 1 — Passing records only ──────────────────────
       let box1Rows = "";
-      if (spfPass) box1Rows += recordRow("SPF", true, "SPF record is correctly configured.");
-      if (mandrillPass) box1Rows += recordRow("Mandrill", true, "Mandrill verification record found.");
-      if (dkimPass) box1Rows += recordRow("DKIM", true, "Mandrill DKIM record found.");
-      if (dmarcPass) box1Rows += recordRow("DMARC", true, "DMARC record found.");
-      if (sgPass) box1Rows += recordRow("SendGrid", true, "SendGrid CNAME record found.");
+      if (spfPass) box1Rows += "<div class='pass-row'><span class='status-ok'>&#10004; SPF</span> &mdash; SPF record is correctly configured.</div>";
+      if (mandrillPass) box1Rows += "<div class='pass-row'><span class='status-ok'>&#10004; Mandrill</span> &mdash; Mandrill verification record found.</div>";
+      if (dkimPass) box1Rows += "<div class='pass-row'><span class='status-ok'>&#10004; DKIM</span> &mdash; Both DKIM records are correctly configured.</div>";
+      if (dmarcPass) box1Rows += "<div class='pass-row'><span class='status-ok'>&#10004; DMARC</span> &mdash; DMARC record found.</div>";
+      if (sgPass) box1Rows += "<div class='pass-row'><span class='status-ok'>&#10004; SendGrid</span> &mdash; All SendGrid CNAME records are correctly configured.</div>";
 
-      let box1HTML = "";
       if (allPass) {
-        box1HTML = `<div class="box all-good">
-          <div class="success-msg">&#10004; All DNS records are correctly configured for MyCRM!</div>
-        </div>`;
+        document.getElementById("box1").innerHTML = "<div class='box all-good'><div class='success-msg'>&#10004; All DNS records are correctly configured for MyCRM!</div></div>";
       } else if (box1Rows) {
-        box1HTML = `<div class="box all-good">
-          <div class="box-title">&#10004; Correctly Configured Records</div>
-          ${box1Rows}
-        </div>`;
+        document.getElementById("box1").innerHTML = "<div class='box all-good'><div class='box-title'>&#10004; Correctly Configured Records</div>" + box1Rows + "</div>";
+      } else {
+        document.getElementById("box1").innerHTML = "";
       }
-      document.getElementById("box1").innerHTML = box1HTML;
 
-      // ── BOX 2 — Failing records + fixes ──────────────────
+      // ── BOX 2 — All pass: contact message ─────────────────
       if (allPass) {
-        document.getElementById("box2").innerHTML = `<div class="box">
-          <div class="contact-msg">
-            If you are still experiencing issues sending emails, <strong>Hellopack</strong>, <strong>Privacy Consent</strong> or <strong>Game Plan</strong> from MyCRM, please contact <strong>Ask LMG</strong> for further assistance.
-          </div>
-        </div>`;
+        document.getElementById("box2").innerHTML = "<div class='box'><div class='contact-msg'>If you are still experiencing issues sending emails, <strong>Hellopack</strong>, <strong>Privacy Consent</strong> or <strong>Game Plan</strong> from MyCRM, please contact <strong>Ask LMG</strong> for further assistance.</div></div>";
         return;
       }
 
+      // ── BOX 2 — Issues and fixes ───────────────────────────
       let box2Rows = "";
 
       // SPF
       if (!spfPass) {
         if (spfCount === 0) {
-          const fixValue = "v=spf1 include:sendgrid.net include:spf.mandrillapp.com ~all";
-          box2Rows += `<div class="record-row">
-            <div class="record-name status-fail">&#10008; SPF — No record found</div>
-            <div class="warn-box">&#9888;&#65039; No SPF record was found on your domain. Please add the following TXT record:</div>
-            <div class="record-block correct">
-              <div class="block-label">&#10004; Add this record</div>
-              <div class="block-value">Type: TXT | Host: @ | Value: ${fixValue}</div>
-            </div>
-            <button class="copy-btn" onclick="copyVal(this, '${fixValue}')">&#128203; Copy Value</button>
-          </div>`;
+          const fix = "v=spf1 include:sendgrid.net include:spf.mandrillapp.com ~all";
+          box2Rows += "<div class='record-row'>" +
+            "<div class='record-name status-fail'>&#10008; SPF &mdash; No record found</div>" +
+            "<div class='warn-box'>&#9888;&#65039; No SPF record was found on your domain. Please add the following TXT record to your DNS:</div>" +
+            "<div class='record-block correct'>" +
+              "<div class='block-label'>&#10004; Add this record</div>" +
+              "<div class='block-value'>Type: TXT<br>Host: @<br>Value: " + fix + "</div>" +
+            "</div>" +
+            "<button class='copy-btn' onclick='copyVal(this, \"" + fix + "\")'>&#128203; Copy Value</button>" +
+          "</div>";
         } else if (spfCount > 1) {
-          box2Rows += `<div class="record-row">
-            <div class="record-name status-warn">&#9888; SPF — Multiple records detected</div>
-            <div class="warn-box">&#9888;&#65039; You have ${spfCount} SPF records. Only ONE SPF record is allowed. Please combine them into a single record — do NOT delete any, merge the includes together.</div>
-            ${spfRecords.map((r, i) => `<div class="record-block incorrect"><div class="block-label">Your current SPF record ${i + 1}</div><div class="block-value">${r}</div></div>`).join("")}
-          </div>`;
+          box2Rows += "<div class='record-row'>" +
+            "<div class='record-name status-warn'>&#9888; SPF &mdash; Multiple records detected</div>" +
+            "<div class='warn-box'>&#9888;&#65039; You have " + spfCount + " SPF records. Only ONE SPF record is allowed. Do NOT delete any &mdash; you need to merge all includes into a single record.</div>" +
+            spfRecords.map((r, i) => "<div class='record-block incorrect'><div class='block-label'>Your current SPF record " + (i+1) + "</div><div class='block-value'>" + r + "</div></div>").join("") +
+          "</div>";
         } else {
-          let missing = [];
+          var missing = [];
           if (!spfHasMandrill) missing.push("include:spf.mandrillapp.com");
           if (!spfHasSendgrid) missing.push("include:sendgrid.net");
-          const fixValue = currentSPF.replace("~all", missing.join(" ") + " ~all");
-          box2Rows += `<div class="record-row">
-            <div class="record-name status-warn">&#9888; SPF — Record needs updating</div>
-            <div class="info-box">&#8505;&#65039; Your current SPF record is shown below. Do <strong>NOT</strong> delete it or create a new one — you only need to <strong>add the missing include(s)</strong> to your existing record.</div>
-            <div class="record-block incorrect">
-              <div class="block-label">&#10060; Your current SPF record</div>
-              <div class="block-value">${currentSPF}</div>
-            </div>
-            <div class="record-block correct">
-              <div class="block-label">&#10004; Updated SPF record (replace your current one with this)</div>
-              <div class="block-value">${fixValue}</div>
-            </div>
-            <button class="copy-btn" onclick="copyVal(this, '${fixValue}')">&#128203; Copy Updated SPF Value</button>
-          </div>`;
+          const fixSPF = currentSPF.replace("~all", missing.join(" ") + " ~all");
+          box2Rows += "<div class='record-row'>" +
+            "<div class='record-name status-warn'>&#9888; SPF &mdash; Record needs updating</div>" +
+            "<div class='info-box'>&#8505;&#65039; Your current SPF record is shown below. Do <strong>NOT</strong> delete it or create a new one &mdash; simply <strong>add the missing value(s)</strong> to your existing record. Your updated record is shown below.</div>" +
+            "<div class='record-block incorrect'><div class='block-label'>&#10060; Your current SPF record</div><div class='block-value'>" + currentSPF + "</div></div>" +
+            "<div class='record-block correct'><div class='block-label'>&#10004; Your updated SPF record (replace your current value with this)</div><div class='block-value'>" + fixSPF + "</div></div>" +
+            "<button class='copy-btn' onclick='copyVal(this, \"" + fixSPF + "\")'>&#128203; Copy Value</button>" +
+          "</div>";
         }
       }
 
       // Mandrill Verify
       if (!mandrillPass) {
-        box2Rows += `<div class="record-row">
-          <div class="record-name status-fail">&#10008; Mandrill — Verification record missing</div>
-          <div class="warn-box">&#9888;&#65039; No Mandrill verification TXT record was found. This record is unique to your domain and can only be generated by the MyCRM Support team. Please contact <strong>Ask LMG</strong> to have this set up for you.</div>
-        </div>`;
+        box2Rows += "<div class='record-row'>" +
+          "<div class='record-name status-warn'>&#9888; Mandrill &mdash; Verification record not found</div>" +
+          "<div class='warn-box'>&#9888;&#65039; No Mandrill verification TXT record was found on your domain. This may not be an issue if your domain has been previously verified &mdash; once verified, this record is no longer required to remain in your DNS. However, if verification has not been completed before, please contact <strong>Ask LMG</strong> for assistance.</div>" +
+        "</div>";
       }
 
       // DKIM
       if (!dkimPass) {
-        const fixValue = "Type: TXT | Host: mandrill._domainkey." + domain + " | Value: (provided by Ask LMG)";
-        box2Rows += `<div class="record-row">
-          <div class="record-name status-fail">&#10008; DKIM — Mandrill DKIM record missing</div>
-          <div class="warn-box">&#9888;&#65039; No DKIM record was found at mandrill._domainkey.${domain}. Please add the following TXT record to your DNS:</div>
-          <div class="record-block correct">
-            <div class="block-label">&#10004; Add this record</div>
-            <div class="block-value">Type: TXT | Host: mandrill._domainkey.${domain} | Value: (contact Ask LMG for the value)</div>
-          </div>
-        </div>`;
+        let dkimFixes = "";
+        if (!dkim1Pass) {
+          const rec = "Type: CNAME\nHost: mte1._domainkey." + domain + "\nValue: dkim1.mandrillapp.com";
+          dkimFixes += "<div class='record-block correct'>" +
+            "<div class='block-label'>&#10004; Add this record</div>" +
+            "<div class='block-value'>Type: CNAME<br>Host: mte1._domainkey." + domain + "<br>Value: dkim1.mandrillapp.com</div>" +
+          "</div>" +
+          "<button class='copy-btn' onclick='copyVal(this, \"" + rec + "\")'>&#128203; Copy Record</button>";
+        }
+        if (!dkim2Pass) {
+          const rec = "Type: CNAME\nHost: mte2._domainkey." + domain + "\nValue: dkim2.mandrillapp.com";
+          dkimFixes += "<div class='record-block correct' style='margin-top:10px'>" +
+            "<div class='block-label'>&#10004; Add this record</div>" +
+            "<div class='block-value'>Type: CNAME<br>Host: mte2._domainkey." + domain + "<br>Value: dkim2.mandrillapp.com</div>" +
+          "</div>" +
+          "<button class='copy-btn' onclick='copyVal(this, \"" + rec + "\")'>&#128203; Copy Record</button>";
+        }
+        box2Rows += "<div class='record-row'>" +
+          "<div class='record-name status-fail'>&#10008; DKIM &mdash; " + (!dkim1Pass && !dkim2Pass ? "Both records missing" : "One record missing") + "</div>" +
+          "<div class='warn-box'>&#9888;&#65039; Please add the following CNAME record(s) to your DNS:</div>" +
+          dkimFixes +
+        "</div>";
       }
 
       // DMARC
       if (!dmarcPass) {
-        const fixValue = "v=DMARC1; p=none;";
-        box2Rows += `<div class="record-row">
-          <div class="record-name status-fail">&#10008; DMARC — No record found</div>
-          <div class="warn-box">&#9888;&#65039; No DMARC record was found at _dmarc.${domain}. Please add the following TXT record:</div>
-          <div class="record-block correct">
-            <div class="block-label">&#10004; Add this record</div>
-            <div class="block-value">Type: TXT | Host: _dmarc.${domain} | Value: ${fixValue}</div>
-          </div>
-          <button class="copy-btn" onclick="copyVal(this, '${fixValue}')">&#128203; Copy Value</button>
-        </div>`;
+        const rec = "Type: TXT\nHost: _dmarc." + domain + "\nValue: v=DMARC1; p=none;";
+        box2Rows += "<div class='record-row'>" +
+          "<div class='record-name status-fail'>&#10008; DMARC &mdash; No record found</div>" +
+          "<div class='warn-box'>&#9888;&#65039; No DMARC record was found at _dmarc." + domain + ". Please add the following TXT record:</div>" +
+          "<div class='record-block correct'>" +
+            "<div class='block-label'>&#10004; Add this record</div>" +
+            "<div class='block-value'>Type: TXT<br>Host: _dmarc." + domain + "<br>Value: v=DMARC1; p=none;</div>" +
+          "</div>" +
+          "<button class='copy-btn' onclick='copyVal(this, \"" + rec + "\")'>&#128203; Copy Record</button>" +
+        "</div>";
       }
 
       // SendGrid
       if (!sgPass) {
-        const fixValue = "u11692406.wl157.sendgrid.net";
-        box2Rows += `<div class="record-row">
-          <div class="record-name status-fail">&#10008; SendGrid — CNAME record missing</div>
-          <div class="warn-box">&#9888;&#65039; No SendGrid CNAME record was found at em.${domain}. Please add the following record:</div>
-          <div class="record-block correct">
-            <div class="block-label">&#10004; Add this record</div>
-            <div class="block-value">Type: CNAME | Host: em.${domain} | Value: ${fixValue}</div>
-          </div>
-          <button class="copy-btn" onclick="copyVal(this, '${fixValue}')">&#128203; Copy Value</button>
-        </div>`;
+        let sgFixes = "";
+        if (!cioPass) {
+          const rec = "Type: CNAME\nHost: customerio." + domain + "\nValue: u11692406.wl157.sendgrid.net";
+          sgFixes += "<div class='record-block correct'>" +
+            "<div class='block-label'>&#10004; Add this record</div>" +
+            "<div class='block-value'>Type: CNAME<br>Host: customerio." + domain + "<br>Value: u11692406.wl157.sendgrid.net</div>" +
+          "</div>" +
+          "<button class='copy-btn' onclick='copyVal(this, \"" + rec + "\")'>&#128203; Copy Record</button>";
+        }
+        if (!sg1Pass) {
+          const rec = "Type: CNAME\nHost: sg1._domainkey." + domain + "\nValue: sg1.domainkey.u11692406.wl157.sendgrid.net";
+          sgFixes += "<div class='record-block correct' style='margin-top:10px'>" +
+            "<div class='block-label'>&#10004; Add this record</div>" +
+            "<div class='block-value'>Type: CNAME<br>Host: sg1._domainkey." + domain + "<br>Value: sg1.domainkey.u11692406.wl157.sendgrid.net</div>" +
+          "</div>" +
+          "<button class='copy-btn' onclick='copyVal(this, \"" + rec + "\")'>&#128203; Copy Record</button>";
+        }
+        if (!sg12Pass) {
+          const rec = "Type: CNAME\nHost: sg12._domainkey." + domain + "\nValue: sg12.domainkey.u11692406.wl157.sendgrid.net";
+          sgFixes += "<div class='record-block correct' style='margin-top:10px'>" +
+            "<div class='block-label'>&#10004; Add this record</div>" +
+            "<div class='block-value'>Type: CNAME<br>Host: sg12._domainkey." + domain + "<br>Value: sg12.domainkey.u11692406.wl157.sendgrid.net</div>" +
+          "</div>" +
+          "<button class='copy-btn' onclick='copyVal(this, \"" + rec + "\")'>&#128203; Copy Record</button>";
+        }
+        box2Rows += "<div class='record-row'>" +
+          "<div class='record-name status-fail'>&#10008; SendGrid &mdash; " + ([!cioPass, !sg1Pass, !sg12Pass].filter(Boolean).length) + " record(s) missing</div>" +
+          "<div class='warn-box'>&#9888;&#65039; Please add the following CNAME record(s) to your DNS:</div>" +
+          sgFixes +
+        "</div>";
       }
 
-      document.getElementById("box2").innerHTML = `<div class="box has-issues">
-        <div class="box-title">&#10060; Records That Need Attention</div>
-        ${box2Rows}
-      </div>`;
+      document.getElementById("box2").innerHTML = "<div class='box has-issues'><div class='box-title'>&#10060; Records That Need Attention</div>" + box2Rows + "</div>";
 
     } catch(e) {
-      document.getElementById("box1").innerHTML = "<div class='box'><p style='color:red'>Error checking DNS. Please try again.</p></div>";
+      document.getElementById("box1").innerHTML = "<div class='box'><p style='color:red'>&#10008; Error checking DNS. Please try again.</p></div>";
       document.getElementById("box2").innerHTML = "";
     }
   }
 
-  function recordRow(label, pass, msg) {
-    return `<div class="record-row">
-      <div class="record-name ${pass ? 'status-ok' : 'status-fail'}">${pass ? '&#10004;' : '&#10008;'} ${label}</div>
-      <div style="font-size:0.83rem; color:#555;">${msg}</div>
-    </div>`;
-  }
-
   function copyVal(btn, val) {
-    navigator.clipboard.writeText(val).then(() => {
+    navigator.clipboard.writeText(val).then(function() {
+      var orig = btn.textContent;
       btn.textContent = "Copied!";
       btn.style.background = "#2e7d32";
-      setTimeout(() => { btn.textContent = "\uD83D\uDCCB Copy Value"; btn.style.background = "#0078d4"; }, 1500);
+      setTimeout(function() { btn.textContent = orig; btn.style.background = "#0078d4"; }, 1500);
     });
   }
 </script>
